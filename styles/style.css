@@ -1,0 +1,41 @@
+/*reset default settings*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 28px;
+    font-weight: bold;
+    background: gray;
+}
+/*clock-section*/
+#clock-section{
+    text-align: center;
+    color: white;
+    width: 500px;
+    margin: 100px auto;
+    
+}
+/*clock-section .session-and-break-options*/
+.session-and-break-options input[type="range"]{
+    width: 240px;
+}
+.session-and-break-options .clock-option{
+    margin: 2px;
+    display: inline-block;
+
+}
+/*clock-section .display-countdown*/
+.display-countdown{
+    margin: 25px 0;
+}
+
+
+
+/*clock-section .countdown-controls*/
+.countdown-controls{
+    margin: 25px 0;
+}
+.countdown-controls div{
+    width: 245px;
+    display:inline-block;
+}

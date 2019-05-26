@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="styles/style.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+    <section id="clock-section">
+        <div class="session-and-break-options">
+
+            <div class="clock-option">
+                <label for="session-time">Session Time</label><br>
+                <p class="session-time">25</p>
+                <input type="range" name="session-time" min="1" max="180" value="25"><br>
+            </div>
+
+            <div class="clock-option">
+                <label for="break-time">Break Time</label><br>
+                <p class="break-time">5</p>
+                <input type="range" name="break-time" min="1" max="160" value="5"><br>
+            </div>
+        
+            
+        </div>
+
+        <div class="display-countdown">
+            <h2>Session</h2>
+            <p class="time-remaining">25:00</p>
+
+        </div>
+        <div class="countdown-controls">
+            <div class="start-button">Start</div>
+            <div class="reset-button">Reset</div>
+        </div>
+    
+
+
+
+
+
+    </section>
+
+
+    <script src="scripts/pomodoro.js"></script>
+</body>
+</html>
