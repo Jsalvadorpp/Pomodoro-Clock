@@ -31,8 +31,9 @@ startButton.addEventListener("click", () => {
 
     if(timerState == timerButtonStates.startTime){
 
-        sessionTime = sessionTime_input.value;
-        breakTime = breakTime_input.value;
+        sessionTime = +sessionTime_input.value;
+        breakTime = +breakTime_input.value;
+        remainingTime = sessionTime*60;
         
         startTimer(sessionTime*60);
         timerState = timerButtonStates.pauseTime;
@@ -58,7 +59,7 @@ resetButton.addEventListener("click", () => {
     timerState = timerButtonStates.startTime;
     timerType_display.textContent = "Session";
     startButton.textContent = "Start";
-    displayRemainingTime(sessionTime*60);
+    displayRemainingTime(+sessionTime_input.value*60);
 
 });
 
