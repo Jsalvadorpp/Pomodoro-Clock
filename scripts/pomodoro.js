@@ -5,18 +5,27 @@ const sessionTime_input = document.querySelector(".clock-option input[name=sessi
 const sessionTime_display = document.querySelector(".session-time");
 const breakTime_input = document.querySelector(".clock-option input[name=break-time]");
 const breakTime_display = document.querySelector(".break-time");
+const timerType_display = document.querySelector(".timer-type");
+const ringToneAudio = document.querySelector(".ringTone-audio");
 const timerButtonStates = {
     startTime : 1,
     resumeTime: 2,
     pauseTime : 3
-
 }
+const timerTypeStates = {
+    session : 1,
+    break: 2
+}
+var timerType = timerTypeStates.session;
 var timerState = timerButtonStates.startTime;
 var sessionTime = 25;
 var breaktime = 5;
+sessionTime_input.value = sessionTime;
+breakTime_input.value = breaktime;
+sessionTime_display.textContent = sessionTime;
+breakTime_display.textContent = breaktime;
 var countdown;
 var remainingTime;
-
 
 startButton.addEventListener("click", () => {
 
@@ -28,7 +37,6 @@ startButton.addEventListener("click", () => {
         startTimer(sessionTime*60);
         timerState = timerButtonStates.pauseTime;
         startButton.textContent = "Pause";
-
 
     }else if(timerState == timerButtonStates.pauseTime){
 
@@ -42,13 +50,13 @@ startButton.addEventListener("click", () => {
         startButton.textContent = "Pause";
         timerState = timerButtonStates.pauseTime;
     }
-    
 });
 
 resetButton.addEventListener("click", () => {
 
     clearInterval(countdown);
     timerState = timerButtonStates.startTime;
+    timerType_display.textContent = "Session";
     startButton.textContent = "Start";
     displayRemainingTime(sessionTime*60);
 
@@ -56,10 +64,8 @@ resetButton.addEventListener("click", () => {
 
 sessionTime_input.addEventListener("change", updateSessionTime);
 sessionTime_input.addEventListener("mousemove", updateSessionTime);
-
 breakTime_input.addEventListener("change", updateBreakTime);
 breakTime_input.addEventListener("mousemove", updateBreakTime);
-
 
 function updateSessionTime(){
 
@@ -69,14 +75,17 @@ function updateSessionTime(){
 
         sessionTime = +sessionTime_display.textContent;
         displayRemainingTime(sessionTime*60);
-
     }
-    
 }
 
 function updateBreakTime(){
 
     breakTime_display.textContent = this.value;
+
+    if(timerState == timerButtonStates.startTime){
+
+        breaktime = +breakTime_display.textContent;  
+    }
 }
 
 function startTimer(timeInSec){
@@ -90,11 +99,25 @@ function startTimer(timeInSec){
 
         if(remainingTime <= 0){
             
+            ringToneAudio.play();
             clearInterval(countdown);
+
+            if(timerType == timerTypeStates.session){
+
+                displayRemainingTime(breaktime*60);
+                timerType_display.textContent = "Break";
+                timerType = timerTypeStates.break;
+                startTimer(breaktime*60);
+
+            }else if(timerType == timerTypeStates.break){
+
+                displayRemainingTime(sessionTime*60);
+                timerType_display.textContent = "Session";
+                timerType = timerTypeStates.session;
+                startTimer(sessionTime*60);
+            }
         }
-
     }, 1000);
-
 }
 
 function displayRemainingTime(timeInSec){
@@ -105,11 +128,9 @@ function displayRemainingTime(timeInSec){
 
     timeDisplay.textContent = `${adjustedTime(minutes)}:${adjustedTime(seconds)}`;
     
-    
     if(hours > 0){
         timeDisplay.textContent = `${adjustedTime(hours)}:${timeDisplay.textContent}`;
-    }
-    
+    } 
 }
 
 function adjustedTime(time){
