@@ -8,7 +8,7 @@ const breakTime_display = document.querySelector(".break-time");
 const timerButtonStates = {
     startTime : 1,
     resumeTime: 2,
-    stopTime : 3
+    pauseTime : 3
 
 }
 var timerState = timerButtonStates.startTime;
@@ -16,6 +16,7 @@ var sessionTime = 25;
 var breaktime = 5;
 var countdown;
 var remainingTime;
+
 
 startButton.addEventListener("click", () => {
 
@@ -25,12 +26,32 @@ startButton.addEventListener("click", () => {
         breakTime = breakTime_input.value;
         
         startTimer(sessionTime*60);
-        timerState = timerButtonStates.stopTime;
+        timerState = timerButtonStates.pauseTime;
+        startButton.textContent = "Pause";
 
-    }else if(timerState == timerButtonStates.stopTime){
 
+    }else if(timerState == timerButtonStates.pauseTime){
+
+        clearInterval(countdown);
+        startButton.textContent = "Resume";
+        timerState = timerButtonStates.resumeTime;
+
+    }else if(timerState == timerButtonStates.resumeTime){
+
+        startTimer(remainingTime);
+        startButton.textContent = "Pause";
+        timerState = timerButtonStates.pauseTime;
     }
     
+});
+
+resetButton.addEventListener("click", () => {
+
+    clearInterval(countdown);
+    timerState = timerButtonStates.startTime;
+    startButton.textContent = "Start";
+    displayRemainingTime(sessionTime*60);
+
 });
 
 sessionTime_input.addEventListener("change", updateSessionTime);
@@ -88,7 +109,6 @@ function displayRemainingTime(timeInSec){
     if(hours > 0){
         timeDisplay.textContent = `${adjustedTime(hours)}:${timeDisplay.textContent}`;
     }
-    console.log(timeDisplay.textContent);
     
 }
 
