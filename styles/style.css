@@ -5,7 +5,7 @@
     box-sizing: border-box;
     font-size: 28px;
     font-weight: bold;
-    background: gray;
+    background: #cc3737;
 }
 /*clock-section*/
 #clock-section{
@@ -22,16 +22,32 @@
 .session-and-break-options .clock-option{
     margin: 2px;
     display: inline-block;
-
+}
+.session-time{
+    color: #41d441;
+}
+.break-time{
+    color: #41d441;
 }
 /*clock-section .display-countdown*/
 .display-countdown{
     margin: 25px 0;
 }
-
-
-
+.time-remaining{
+    color: #41d441;
+}
 /*clock-section .countdown-controls*/
+.countdown-controls div{
+    transition: transform 0.3s;
+}
+.countdown-controls div:hover{
+    color:black;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.countdown-controls div:active{
+    transform: translateY(2px);
+}
 .countdown-controls{
     margin: 25px 0;
 }
